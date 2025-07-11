@@ -2,7 +2,7 @@
 
 Este proyecto es una página web personal desarrollada con **React** y **Material UI (MUI)**. Muestra información relevante sobre mi perfil profesional, habilidades, proyectos académicos y experiencia laboral.
 
-## 🤖 **Experiencia y Proceso de Desarrollo con IA**
+## **Experiencia y Proceso de Desarrollo con IA**
 
 ### **Metodología de Trabajo con IA**
 
@@ -68,23 +68,23 @@ Este proyecto fue desarrollado utilizando una metodología híbrida que combina 
 - La validación manual sigue siendo esencial
 - La documentación del proceso es fundamental
 
-## 🚀 **Nuevas Funcionalidades Implementadas**
+## **Nuevas Funcionalidades Implementadas**
 
-### **✨ Interactividad y UX**
+### **Interactividad y UX**
 - **Modo oscuro/claro**: Toggle dinámico entre temas
 - **Animaciones suaves**: Transiciones con Framer Motion
 - **Lazy loading**: Carga bajo demanda de componentes
 - **Filtros de proyectos**: Filtrar por tecnología
 - **Responsive mejorado**: Optimizado para todos los dispositivos
 
-### **🎨 Diseño y Performance**
+### **Diseño y Performance**
 - **Componentes modulares**: Arquitectura escalable
 - **Tema dinámico**: Cambio automático de colores
 - **Loading states**: Indicadores de carga
 - **Optimización SEO**: Meta tags y preload de recursos
 - **PWA ready**: Progressive Web App configurado
 
-### **🧪 Testing Avanzado**
+### **Testing Avanzado**
 - **Pruebas de nuevas funcionalidades**: Modo oscuro, filtros, animaciones
 - **Cobertura mejorada**: Más casos de prueba
 - **CI/CD automático**: GitHub Actions configurado
@@ -115,7 +115,7 @@ Este proyecto fue desarrollado utilizando una metodología híbrida que combina 
 - **Visual Studio Code** - Editor de código
 - **GitHub Actions** - CI/CD automático
 
-## 💡 Funcionalidades
+## Funcionalidades
 
 ### **Sección Personal**
 - Visualización de datos personales con imagen de perfil
@@ -154,7 +154,7 @@ Se implementaron pruebas automatizadas con **Jest** y **Testing Library** que va
 
 > Las pruebas están en el archivo `src/App.test.js`.
 
-## 🚀 **CI/CD Pipeline**
+## **CI/CD Pipeline**
 
 ### **GitHub Actions**
 - **Tests automáticos**: Se ejecutan en cada push/PR
@@ -169,7 +169,7 @@ Se implementaron pruebas automatizadas con **Jest** y **Testing Library** que va
 
 ---
 
-## 🤖 **Uso de Inteligencia Artificial**
+## **Uso de Inteligencia Artificial**
 
 ### **Herramientas de IA utilizadas**
 
@@ -214,7 +214,7 @@ La IA fue de gran utilidad para:
 
 ---
 
-## 🛠️ **Cómo iniciar el proyecto**
+## **Cómo iniciar el proyecto**
 
 ### **Instalación**
 ```bash
@@ -243,7 +243,7 @@ npm run lint
 
 ---
 
-## 📊 **Métricas de Calidad**
+## **Métricas de Calidad**
 
 - **Cobertura de tests**: >90%
 - **Performance**: Lighthouse score >90
@@ -253,7 +253,7 @@ npm run lint
 
 ---
 
-## 🔧 **Estructura del Proyecto**
+## **Estructura del Proyecto**
 
 ```
 src/
@@ -277,7 +277,7 @@ public/
 
 ---
 
-## 🌟 **Características Destacadas**
+## **Características Destacadas**
 
 - ✅ **Modo oscuro/claro** con persistencia
 - ✅ **Animaciones suaves** con Framer Motion
@@ -291,7 +291,7 @@ public/
 
 ---
 
-## 📈 **Resultados del Desarrollo con IA**
+## **Resultados del Desarrollo con IA**
 
 ### **Métricas de Productividad**
 - **Tiempo de desarrollo**: Reducido en 60%
@@ -313,7 +313,7 @@ public/
 
 ---
 
-## 🎯 **Conclusiones y Aprendizajes**
+## **Conclusiones y Aprendizajes**
 
 ### **Beneficios del Desarrollo con IA**
 1. **Aceleración del desarrollo**: Reducción significativa en tiempo de implementación
