@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Typography,
-  Grid2 as Grid,
+  Grid,
   Card,
   CardContent,
   Box,
@@ -57,7 +57,7 @@ const Skills = ({ skills }) => {
       >
         <Grid container spacing={2} sx={{ mb: 4 }}>
           {skills.map((skill, index) => (
-            <Grid xs={12} sm={6} md={4} key={index}>
+            <Grid item xs={12} sm={6} md={4} key={index}>
               <motion.div variants={itemVariants}>
                 <Card 
                   sx={{ 

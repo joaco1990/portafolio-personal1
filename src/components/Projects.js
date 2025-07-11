@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import {
   Typography,
-  Grid2 as Grid,
+  Grid,
   Card,
   CardContent,
   Box,
   Chip,
   Button,
-  ButtonGroup,
-  Divider
+  ButtonGroup
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -101,7 +100,7 @@ const Projects = ({ projects }) => {
         <AnimatePresence mode="wait">
           <Grid container spacing={3} key={filter}>
             {filteredProjects.map((project, index) => (
-              <Grid xs={12} md={4} key={project.title}>
+              <Grid item xs={12} md={4} key={project.title}>
                 <motion.div
                   variants={itemVariants}
                   layout
