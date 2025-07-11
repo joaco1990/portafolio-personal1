@@ -1,56 +1,19 @@
-import React from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import {
   ThemeProvider,
   createTheme,
   Container,
-  Typography,
   Box,
-  Card,
-  CardContent,
-  Grid,
-  Avatar,
-  Chip,
-  Paper,
   Divider,
-  IconButton,
-  Link
+  CircularProgress,
+  CssBaseline
 } from '@mui/material';
-import {
-  Email,
-  Phone,
-  GitHub,
-  LinkedIn,
-  Chat,
-  Star,
-  Group,
-  AutoAwesome,
-  Code,
-  Web,
-  PhoneAndroid,
-  Storage
-} from '@mui/icons-material';
+import { motion } from 'framer-motion';
 
-// Crear tema azul
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    h3: {
-      fontWeight: 600,
-    },
-    h4: {
-      fontWeight: 500,
-    },
-  },
-});
+// Lazy loading de componentes
+const Header = lazy(() => import('./components/Header'));
+const Skills = lazy(() => import('./components/Skills'));
+const Projects = lazy(() => import('./components/Projects'));
 
 // Datos personales
 const personalInfo = {
@@ -61,139 +24,130 @@ const personalInfo = {
   photoAlt: 'fotografía de perfil'
 };
 
-// Habilidades
+// Habilidades mejoradas
 const skills = [
-  { name: 'Comunicación', icon: <Chat />, color: '#1976d2' },
-  { name: 'Liderazgo', icon: <Star />, color: '#1976d2' },
-  { name: 'Trabajo en equipo', icon: <Group />, color: '#1976d2' },
-  { name: 'Adaptabilidad', icon: <AutoAwesome />, color: '#1976d2' },
-  { name: 'JavaScript', icon: <Code />, color: '#f7df1e' }
+  { name: 'Comunicación', icon: '💬', color: '#1976d2', level: 'Avanzado' },
+  { name: 'Liderazgo', icon: '⭐', color: '#1976d2', level: 'Avanzado' },
+  { name: 'Trabajo en equipo', icon: '👥', color: '#1976d2', level: 'Avanzado' },
+  { name: 'Adaptabilidad', icon: '🔄', color: '#1976d2', level: 'Avanzado' },
+  { name: 'JavaScript', icon: '⚡', color: '#f7df1e', level: 'Intermedio' },
+  { name: 'React', icon: '⚛️', color: '#61dafb', level: 'Intermedio' },
+  { name: 'Node.js', icon: '🟢', color: '#339933', level: 'Básico' },
+  { name: 'Git', icon: '📝', color: '#f05032', level: 'Intermedio' }
 ];
 
-// Proyectos
+// Proyectos mejorados
 const projects = [
   {
     title: 'Desarrollo web',
     description: 'Desarrollo de aplicaciones web responsivas utilizando tecnologías modernas como React, Node.js y bases de datos.',
     technologies: ['React', 'Node.js', 'HTML/CSS', 'JavaScript'],
-    icon: <Web />
+    icon: '🌐',
+    link: '#'
   },
   {
     title: 'Aplicaciones móviles',
     description: 'Creación de aplicaciones móviles nativas y multiplataforma para iOS y Android.',
     technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
-    icon: <PhoneAndroid />
+    icon: '📱',
+    link: '#'
   },
   {
     title: 'Bases de datos',
     description: 'Diseño e implementación de bases de datos relacionales y NoSQL para aplicaciones empresariales.',
     technologies: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis'],
-    icon: <Storage />
+    icon: '🗄️',
+    link: '#'
+  },
+  {
+    title: 'Portafolio Personal',
+    description: 'Portafolio web personal desarrollado con React y Material UI, incluyendo pruebas unitarias automatizadas.',
+    technologies: ['React', 'Material UI', 'Jest', 'Testing Library'],
+    icon: '🎨',
+    link: '#'
   }
 ];
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Crear tema dinámico
+  const theme = createTheme({
+    palette: {
+      mode: isDarkMode ? 'dark' : 'light',
+      primary: {
+        main: '#1976d2',
+        light: '#42a5f5',
+        dark: '#1565c0',
+      },
+      secondary: {
+        main: '#dc004e',
+      },
+      background: {
+        default: isDarkMode ? '#121212' : '#fafafa',
+        paper: isDarkMode ? '#1e1e1e' : '#ffffff',
+      },
+    },
+    typography: {
+      h3: {
+        fontWeight: 600,
+      },
+      h4: {
+        fontWeight: 500,
+      },
+    },
+    components: {
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            transition: 'all 0.3s ease-in-out',
+          },
+        },
+      },
+    },
+  });
+
+  const handleToggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  // Loading component
+  const LoadingSpinner = () => (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+      <CircularProgress />
+    </Box>
+  );
+
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        {/* Header con información personal */}
-        <Paper elevation={3} sx={{ p: 4, mb: 4, textAlign: 'center' }}>
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 3 }}>
-            <Avatar
-              src={personalInfo.photo}
-              alt={personalInfo.photoAlt}
-              sx={{ width: 150, height: 150, border: 3, borderColor: 'primary.main' }}
+      <CssBaseline />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Header 
+              personalInfo={personalInfo} 
+              isDarkMode={isDarkMode} 
+              onToggleTheme={handleToggleTheme} 
             />
-            <Box sx={{ flex: 1 }}>
-              <Typography variant="h3" component="h1" gutterBottom color="primary">
-                {personalInfo.name}
-              </Typography>
-              <Typography variant="h6" color="text.secondary" gutterBottom>
-                Desarrollador Full Stack
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 2 }}>
-                <Link href={`mailto:${personalInfo.email}`} color="inherit">
-                  <IconButton color="primary">
-                    <Email />
-                  </IconButton>
-                </Link>
-                <Link href={`tel:${personalInfo.phone}`} color="inherit">
-                  <IconButton color="primary">
-                    <Phone />
-                  </IconButton>
-                </Link>
-                <IconButton color="primary">
-                  <GitHub />
-                </IconButton>
-                <IconButton color="primary">
-                  <LinkedIn />
-                </IconButton>
-              </Box>
-            </Box>
-          </Box>
-        </Paper>
+          </Suspense>
 
-        {/* Sección de Habilidades */}
-        <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3 }}>
-          Habilidades
-        </Typography>
-        <Grid container spacing={2} sx={{ mb: 4 }}>
-          {skills.map((skill, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ height: '100%', textAlign: 'center' }}>
-                <CardContent>
-                  <Box sx={{ color: skill.color, mb: 1 }}>
-                    {skill.icon}
-                  </Box>
-                  <Typography variant="h6" component="h3">
-                    {skill.name}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+          <Divider sx={{ my: 4 }} />
 
-        <Divider sx={{ my: 4 }} />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Skills skills={skills} />
+          </Suspense>
 
-        {/* Sección de Proyectos */}
-        <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3 }}>
-          Proyectos
-        </Typography>
-        <Grid container spacing={3}>
-          {projects.map((project, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Box sx={{ color: 'primary.main', mr: 1 }}>
-                      {project.icon}
-                    </Box>
-                    <Typography variant="h5" component="h3" color="primary">
-                      {project.title}
-                    </Typography>
-                  </Box>
-                  <Typography variant="body1" color="text.secondary" paragraph>
-                    {project.description}
-                  </Typography>
-                  <Box sx={{ mb: 2 }}>
-                    {project.technologies.map((tech, techIndex) => (
-                      <Chip
-                        key={techIndex}
-                        label={tech}
-                        size="small"
-                        sx={{ mr: 1, mb: 1 }}
-                        color="primary"
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+          <Divider sx={{ my: 4 }} />
+
+          <Suspense fallback={<LoadingSpinner />}>
+            <Projects projects={projects} />
+          </Suspense>
+        </Container>
+      </motion.div>
     </ThemeProvider>
   );
 }
