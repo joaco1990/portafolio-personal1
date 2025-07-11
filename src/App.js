@@ -6,7 +6,8 @@ import {
   Box,
   Divider,
   CircularProgress,
-  CssBaseline
+  CssBaseline,
+  Typography
 } from '@mui/material';
 import { motion } from 'framer-motion';
 
@@ -15,63 +16,106 @@ const Header = lazy(() => import('./components/Header'));
 const Skills = lazy(() => import('./components/Skills'));
 const Projects = lazy(() => import('./components/Projects'));
 
-// Datos personales
+// Datos personales actualizados
 const personalInfo = {
   name: 'Joaquín Nicolás Guzmán Buitrón',
   email: 'joacoguz@gmail.com',
   phone: '0987144914',
   photo: 'foto.jpg',
-  photoAlt: 'fotografía de perfil'
+  photoAlt: 'fotografía de perfil',
+  title: 'Desarrollador Full Stack & Ingeniero de Software',
+  description: 'Profesional multifacético con experiencia en gastronomía y mantenimiento de equipos médicos. Actualmente cursando 5º semestre de Ingeniería de Software, enfocado en desarrollo web moderno y tecnologías emergentes.'
 };
 
-// Habilidades mejoradas
+// Habilidades mejoradas y expandidas
 const skills = [
-  { name: 'Comunicación', icon: '💬', color: '#1976d2', level: 'Avanzado' },
-  { name: 'Liderazgo', icon: '⭐', color: '#1976d2', level: 'Avanzado' },
-  { name: 'Trabajo en equipo', icon: '👥', color: '#1976d2', level: 'Avanzado' },
-  { name: 'Adaptabilidad', icon: '🔄', color: '#1976d2', level: 'Avanzado' },
-  { name: 'JavaScript', icon: '⚡', color: '#f7df1e', level: 'Intermedio' },
-  { name: 'React', icon: '⚛️', color: '#61dafb', level: 'Intermedio' },
-  { name: 'Node.js', icon: '🟢', color: '#339933', level: 'Básico' },
-  { name: 'Git', icon: '📝', color: '#f05032', level: 'Intermedio' }
+  // Habilidades blandas
+  { name: 'Comunicación Efectiva', icon: '💬', color: '#1976d2', level: 'Avanzado', category: 'soft' },
+  { name: 'Liderazgo de Equipos', icon: '⭐', color: '#1976d2', level: 'Avanzado', category: 'soft' },
+  { name: 'Trabajo en Equipo', icon: '👥', color: '#1976d2', level: 'Avanzado', category: 'soft' },
+  { name: 'Resolución de Problemas', icon: '🧩', color: '#1976d2', level: 'Avanzado', category: 'soft' },
+  { name: 'Adaptabilidad', icon: '🔄', color: '#1976d2', level: 'Avanzado', category: 'soft' },
+  { name: 'Gestión de Proyectos', icon: '📊', color: '#1976d2', level: 'Intermedio', category: 'soft' },
+  
+  // Habilidades técnicas frontend
+  { name: 'JavaScript (ES6+)', icon: '⚡', color: '#f7df1e', level: 'Intermedio', category: 'frontend' },
+  { name: 'React.js', icon: '⚛️', color: '#61dafb', level: 'Intermedio', category: 'frontend' },
+  { name: 'HTML5 & CSS3', icon: '🌐', color: '#e34f26', level: 'Intermedio', category: 'frontend' },
+  { name: 'Material UI', icon: '🎨', color: '#0081cb', level: 'Intermedio', category: 'frontend' },
+  { name: 'Responsive Design', icon: '📱', color: '#ff6b35', level: 'Intermedio', category: 'frontend' },
+  
+  // Habilidades técnicas backend
+  { name: 'Node.js', icon: '🟢', color: '#339933', level: 'Básico', category: 'backend' },
+  { name: 'Express.js', icon: '🚀', color: '#000000', level: 'Básico', category: 'backend' },
+  { name: 'MongoDB', icon: '🍃', color: '#47a248', level: 'Básico', category: 'backend' },
+  
+  // Herramientas de desarrollo
+  { name: 'Git & GitHub', icon: '📝', color: '#f05032', level: 'Intermedio', category: 'tools' },
+  { name: 'VS Code', icon: '💻', color: '#007acc', level: 'Intermedio', category: 'tools' },
+  { name: 'Jest Testing', icon: '🧪', color: '#c21325', level: 'Básico', category: 'tools' },
+  { name: 'Framer Motion', icon: '🎬', color: '#0055ff', level: 'Básico', category: 'tools' },
+  
+  // Habilidades adicionales
+  { name: 'Mantenimiento Médico', icon: '🏥', color: '#2196f3', level: 'Avanzado', category: 'other' },
+  { name: 'Gestión Gastronómica', icon: '👨‍🍳', color: '#ff9800', level: 'Avanzado', category: 'other' }
 ];
 
-// Proyectos mejorados
+// Proyectos mejorados y más específicos
 const projects = [
   {
-    title: 'Desarrollo web',
-    description: 'Desarrollo de aplicaciones web responsivas utilizando tecnologías modernas como React, Node.js y bases de datos.',
-    technologies: ['React', 'Node.js', 'HTML/CSS', 'JavaScript'],
-    icon: '🌐',
-    link: '#'
-  },
-  {
-    title: 'Aplicaciones móviles',
-    description: 'Creación de aplicaciones móviles nativas y multiplataforma para iOS y Android.',
-    technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
-    icon: '📱',
-    link: '#'
-  },
-  {
-    title: 'Bases de datos',
-    description: 'Diseño e implementación de bases de datos relacionales y NoSQL para aplicaciones empresariales.',
-    technologies: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis'],
-    icon: '🗄️',
-    link: '#'
-  },
-  {
     title: 'Portafolio Personal',
-    description: 'Portafolio web personal desarrollado con React y Material UI, incluyendo pruebas unitarias automatizadas.',
-    technologies: ['React', 'Material UI', 'Jest', 'Testing Library'],
+    description: 'Portafolio web personal desarrollado con React y Material UI, incluyendo modo oscuro, animaciones con Framer Motion, lazy loading y pruebas unitarias automatizadas con Jest.',
+    technologies: ['React', 'Material UI', 'Framer Motion', 'Jest', 'Testing Library'],
     icon: '🎨',
-    link: '#'
+    link: 'https://github.com/joacoguz/portafolio-personal',
+    status: 'Completado'
+  },
+  {
+    title: 'Sistema de Gestión de Inventarios',
+    description: 'Aplicación web para gestión de inventarios con interfaz intuitiva, reportes en tiempo real y sistema de alertas automáticas.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Express.js', 'Material UI'],
+    icon: '📦',
+    link: '#',
+    status: 'En Desarrollo'
+  },
+  {
+    title: 'App de Gestión Gastronómica',
+    description: 'Aplicación móvil para gestión de restaurantes con control de inventario, gestión de personal y análisis de ventas.',
+    technologies: ['React Native', 'Firebase', 'Redux', 'Node.js'],
+    icon: '🍽️',
+    link: '#',
+    status: 'Planificado'
+  },
+  {
+    title: 'Sistema de Monitoreo Médico',
+    description: 'Plataforma web para monitoreo remoto de equipos médicos con alertas en tiempo real y reportes automatizados.',
+    technologies: ['React', 'WebSocket', 'Node.js', 'PostgreSQL', 'Docker'],
+    icon: '🏥',
+    link: '#',
+    status: 'Planificado'
+  },
+  {
+    title: 'E-commerce Responsive',
+    description: 'Tienda online completa con carrito de compras, pasarela de pagos, gestión de usuarios y panel administrativo.',
+    technologies: ['React', 'Stripe', 'Node.js', 'MongoDB', 'JWT'],
+    icon: '🛒',
+    link: '#',
+    status: 'En Desarrollo'
+  },
+  {
+    title: 'Dashboard Analytics',
+    description: 'Dashboard interactivo con gráficos en tiempo real, filtros avanzados y exportación de datos en múltiples formatos.',
+    technologies: ['React', 'Chart.js', 'D3.js', 'Node.js', 'Redis'],
+    icon: '📊',
+    link: '#',
+    status: 'Planificado'
   }
 ];
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Crear tema dinámico
+  // Crear tema dinámico mejorado
   const theme = createTheme({
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
@@ -82,18 +126,34 @@ function App() {
       },
       secondary: {
         main: '#dc004e',
+        light: '#ff5983',
+        dark: '#9a0036',
       },
       background: {
         default: isDarkMode ? '#121212' : '#fafafa',
         paper: isDarkMode ? '#1e1e1e' : '#ffffff',
       },
+      text: {
+        primary: isDarkMode ? '#ffffff' : '#000000',
+        secondary: isDarkMode ? '#b0b0b0' : '#666666',
+      },
     },
     typography: {
       h3: {
         fontWeight: 600,
+        fontSize: '2.5rem',
       },
       h4: {
         fontWeight: 500,
+        fontSize: '2rem',
+      },
+      h5: {
+        fontWeight: 500,
+        fontSize: '1.5rem',
+      },
+      body1: {
+        fontSize: '1rem',
+        lineHeight: 1.6,
       },
     },
     components: {
@@ -101,6 +161,23 @@ function App() {
         styleOverrides: {
           root: {
             transition: 'all 0.3s ease-in-out',
+            borderRadius: 12,
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            textTransform: 'none',
+            fontWeight: 500,
+          },
+        },
+      },
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            borderRadius: 16,
           },
         },
       },
@@ -111,10 +188,20 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  // Loading component
+  // Loading component mejorado
   const LoadingSpinner = () => (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
-      <CircularProgress />
+    <Box sx={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '200px',
+      flexDirection: 'column',
+      gap: 2
+    }}>
+      <CircularProgress size={40} />
+      <Typography variant="body2" color="text.secondary">
+        Cargando...
+      </Typography>
     </Box>
   );
 

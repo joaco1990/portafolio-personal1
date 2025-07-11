@@ -1,20 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   Grid,
   Card,
   CardContent,
   Box,
-  Chip
+  Chip,
+  ButtonGroup,
+  Button,
+  Divider
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const Skills = ({ skills }) => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
+
+  // Obtener categorías únicas
+  const categories = ['all', ...new Set(skills.map(skill => skill.category))];
+  
+  // Filtrar habilidades por categoría
+  const filteredSkills = selectedCategory === 'all' 
+    ? skills 
+    : skills.filter(skill => skill.category === selectedCategory);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,6 +49,27 @@ const Skills = ({ skills }) => {
     }
   };
 
+  const getCategoryLabel = (category) => {
+    const labels = {
+      'all': 'Todas',
+      'soft': 'Habilidades Blandas',
+      'frontend': 'Frontend',
+      'backend': 'Backend',
+      'tools': 'Herramientas',
+      'other': 'Otros'
+    };
+    return labels[category] || category;
+  };
+
+  const getLevelColor = (level) => {
+    const colors = {
+      'Básico': 'default',
+      'Intermedio': 'primary',
+      'Avanzado': 'success'
+    };
+    return colors[level] || 'default';
+  };
+
   return (
     <Box>
       <motion.div
@@ -48,6 +81,26 @@ const Skills = ({ skills }) => {
           Habilidades
         </Typography>
       </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 1 }}>
+          <ButtonGroup variant="outlined" size="small">
+            {categories.map(category => (
+              <Button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                variant={selectedCategory === category ? 'contained' : 'outlined'}
+              >
+                {getCategoryLabel(category)}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+      </motion.div>
       
       <motion.div
         ref={ref}
@@ -56,7 +109,7 @@ const Skills = ({ skills }) => {
         animate={inView ? "visible" : "hidden"}
       >
         <Grid container spacing={2} sx={{ mb: 4 }}>
-          {skills.map((skill, index) => (
+          {filteredSkills.map((skill, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <motion.div variants={itemVariants}>
                 <Card 
@@ -86,7 +139,16 @@ const Skills = ({ skills }) => {
                       <Chip 
                         label={`Nivel: ${skill.level}`} 
                         size="small" 
-                        color="primary" 
+                        color={getLevelColor(skill.level)}
+                        variant="outlined"
+                        sx={{ mb: 1 }}
+                      />
+                    )}
+                    {skill.category && skill.category !== 'other' && (
+                      <Chip 
+                        label={getCategoryLabel(skill.category)} 
+                        size="small" 
+                        color="secondary"
                         variant="outlined"
                       />
                     )}
@@ -97,6 +159,20 @@ const Skills = ({ skills }) => {
           ))}
         </Grid>
       </motion.div>
+
+      {filteredSkills.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Box sx={{ textAlign: 'center', py: 4 }}>
+            <Typography variant="h6" color="text.secondary">
+              No hay habilidades en esta categoría
+            </Typography>
+          </Box>
+        </motion.div>
+      )}
     </Box>
   );
 };

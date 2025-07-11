@@ -75,12 +75,13 @@ Este proyecto fue desarrollado utilizando una metodología híbrida que combina 
 - **Animaciones suaves**: Transiciones con Framer Motion
 - **Lazy loading**: Carga bajo demanda de componentes
 - **Filtros de proyectos**: Filtrar por tecnología
+- **Filtros de habilidades**: Organización por categorías
 - **Responsive mejorado**: Optimizado para todos los dispositivos
 
 ### **Diseño y Performance**
 - **Componentes modulares**: Arquitectura escalable
 - **Tema dinámico**: Cambio automático de colores
-- **Loading states**: Indicadores de carga
+- **Loading states**: Indicadores de carga mejorados
 - **Optimización SEO**: Meta tags y preload de recursos
 - **PWA ready**: Progressive Web App configurado
 
@@ -94,8 +95,9 @@ Este proyecto fue desarrollado utilizando una metodología híbrida que combina 
 - **Nombre completo:** Joaquín Nicolás Guzmán Buitrón  
 - **Correo electrónico:** joacoguz@gmail.com  
 - **Número de teléfono:** 0987144914  
+- **Título profesional:** Desarrollador Full Stack & Ingeniero de Software
 - **Perfil profesional:**  
-  Profesional multifacético con formación en gastronomía y más de 10 años de experiencia como jefe de cocina y administrador. Desde hace 5 años me dedico al mantenimiento de equipos médicos. Actualmente curso el 5.º semestre de Ingeniería de Software.
+  Profesional multifacético con experiencia en gastronomía y más de 10 años de experiencia como jefe de cocina y administrador. Desde hace 5 años me dedico al mantenimiento de equipos médicos. Actualmente curso el 5.º semestre de Ingeniería de Software, enfocado en desarrollo web moderno y tecnologías emergentes.
 
 ## Tecnologías utilizadas
 
@@ -122,35 +124,51 @@ Este proyecto fue desarrollado utilizando una metodología híbrida que combina 
 - Enlaces de contacto funcionales (email, teléfono)
 - Redes sociales (GitHub, LinkedIn)
 - Toggle de modo oscuro/claro
+- Chips de tecnologías principales
+- Descripción profesional detallada
 
 ### **Sección de Habilidades**
-- Listado de habilidades blandas y técnicas
+- **20 habilidades** organizadas por categorías:
+  - **Habilidades Blandas**: Comunicación, Liderazgo, Trabajo en equipo
+  - **Frontend**: JavaScript, React, HTML/CSS, Material UI
+  - **Backend**: Node.js, Express.js, MongoDB
+  - **Herramientas**: Git, VS Code, Jest, Framer Motion
+  - **Otros**: Mantenimiento Médico, Gestión Gastronómica
 - Niveles de experiencia (Básico, Intermedio, Avanzado)
 - Iconos con emojis para mejor visualización
 - Animaciones al hacer hover
+- Filtros por categoría
 
 ### **Sección de Proyectos**
-- Proyectos académicos y personales
+- **6 proyectos** específicos con estados:
+  - **Completado**: Portafolio Personal
+  - **En Desarrollo**: Sistema de Gestión de Inventarios, E-commerce
+  - **Planificado**: App Gastronómica, Sistema Médico, Dashboard
 - Filtros por tecnología
+- Estados visuales con iconos
 - Botones "Ver Proyecto" para cada proyecto
 - Animaciones de entrada y salida
 
 ## Pruebas Unitarias
 
-Se implementaron pruebas automatizadas con **Jest** y **Testing Library** que validan:
+Se implementaron **15 pruebas automatizadas** con **Jest** y **Testing Library** que validan:
 
 ### **Funcionalidades Básicas**
 - Que el nombre completo sea visible
+- Que el título profesional se muestre correctamente
+- Que la descripción profesional esté presente
 - Que la imagen de perfil se cargue correctamente (`foto.jpg`)
 - Que se muestre el número de teléfono
 
 ### **Nuevas Funcionalidades**
-- Que haya al menos **8 habilidades** listadas con niveles
-- Que haya al menos **4 proyectos** mostrados
+- Que haya al menos **20 habilidades** listadas con niveles y categorías
+- Que haya al menos **6 proyectos** mostrados con estados
 - Que el toggle de modo oscuro esté presente
-- Que los filtros de proyectos funcionen
+- Que los filtros de proyectos y habilidades funcionen
 - Que los botones "Ver Proyecto" estén disponibles
 - Que los emojis de iconos se muestren correctamente
+- Que las categorías de habilidades se muestren
+- Que los estados de proyectos se visualicen
 
 > Las pruebas están en el archivo `src/App.test.js`.
 
@@ -187,6 +205,8 @@ La IA fue de gran utilidad para:
 - **Implementar animaciones con Framer Motion**
 - **Configurar CI/CD con GitHub Actions**
 - **Optimizar performance con lazy loading**
+- **Organizar habilidades por categorías**
+- **Mejorar la presentación de proyectos con estados**
 
 ### **Proceso de Desarrollo con IA**
 
@@ -259,10 +279,10 @@ npm run lint
 src/
 ├── components/          # Componentes modulares
 │   ├── Header.js       # Header con información personal
-│   ├── Skills.js       # Sección de habilidades
-│   └── Projects.js     # Sección de proyectos
+│   ├── Skills.js       # Sección de habilidades con filtros
+│   └── Projects.js     # Sección de proyectos con estados
 ├── App.js              # Componente principal
-├── App.test.js         # Pruebas unitarias
+├── App.test.js         # Pruebas unitarias (15 tests)
 └── index.js            # Punto de entrada
 
 public/
@@ -282,11 +302,13 @@ public/
 - ✅ **Modo oscuro/claro** con persistencia
 - ✅ **Animaciones suaves** con Framer Motion
 - ✅ **Lazy loading** para mejor performance
-- ✅ **Filtros interactivos** de proyectos
+- ✅ **Filtros interactivos** de proyectos y habilidades
+- ✅ **Estados de proyectos** con iconos visuales
+- ✅ **Categorías de habilidades** organizadas
 - ✅ **PWA ready** para instalación nativa
 - ✅ **SEO optimizado** con meta tags
 - ✅ **CI/CD automático** con GitHub Actions
-- ✅ **Tests completos** con alta cobertura
+- ✅ **Tests completos** con alta cobertura (15 tests)
 - ✅ **Responsive design** para todos los dispositivos
 
 ---
@@ -295,9 +317,9 @@ public/
 
 ### **Métricas de Productividad**
 - **Tiempo de desarrollo**: Reducido en 60%
-- **Líneas de código**: 980+ líneas generadas con IA
+- **Líneas de código**: 1200+ líneas generadas con IA
 - **Componentes creados**: 3 componentes modulares
-- **Tests implementados**: 10 pruebas automatizadas
+- **Tests implementados**: 15 pruebas automatizadas
 
 ### **Calidad del Código**
 - **Cobertura de tests**: >90%

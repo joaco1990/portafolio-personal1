@@ -30,6 +30,8 @@ jest.mock('./components/Header', () => {
     return (
       <div data-testid="header">
         <h1>{personalInfo.name}</h1>
+        <h2>{personalInfo.title}</h2>
+        <p>{personalInfo.description}</p>
         <img alt={personalInfo.photoAlt} src={personalInfo.photo} />
         <a href={`tel:${personalInfo.phone}`}>Phone</a>
         <button aria-label="modo oscuro">Dark Mode Toggle</button>
@@ -43,11 +45,20 @@ jest.mock('./components/Skills', () => {
     return (
       <div data-testid="skills">
         <h2>Habilidades</h2>
+        <div data-testid="category-filters">
+          <button>Todas</button>
+          <button>Habilidades Blandas</button>
+          <button>Frontend</button>
+          <button>Backend</button>
+          <button>Herramientas</button>
+          <button>Otros</button>
+        </div>
         {skills.map((skill, index) => (
-          <div key={index}>
+          <div key={index} data-testid={`skill-${skill.name}`}>
             <h3>{skill.name}</h3>
             <span style={{ fontSize: '2rem' }}>{skill.icon}</span>
             {skill.level && <span data-testid={`level-${skill.name}`}>Nivel: {skill.level}</span>}
+            {skill.category && <span data-testid={`category-${skill.name}`}>Categoría: {skill.category}</span>}
           </div>
         ))}
       </div>
@@ -60,12 +71,17 @@ jest.mock('./components/Projects', () => {
     return (
       <div data-testid="projects">
         <h2>Proyectos</h2>
-        <button data-testid="filter-all">Todos</button>
-        <button data-testid="filter-react">React</button>
+        <div data-testid="project-filters">
+          <button data-testid="filter-all">Todos</button>
+          <button data-testid="filter-react">React</button>
+          <button data-testid="filter-node">Node.js</button>
+          <button data-testid="filter-material">Material UI</button>
+        </div>
         {projects.map((project, index) => (
-          <div key={index}>
+          <div key={index} data-testid={`project-${project.title}`}>
             <h3>{project.title}</h3>
             <p>{project.description}</p>
+            <span data-testid={`status-${project.title}`}>Estado: {project.status}</span>
             <button>Ver Proyecto</button>
           </div>
         ))}
@@ -86,6 +102,20 @@ describe('App Component', () => {
     });
   });
 
+  test('debe mostrar el título profesional', async () => {
+    await waitFor(() => {
+      const titleElement = screen.getByText('Desarrollador Full Stack & Ingeniero de Software');
+      expect(titleElement).toBeInTheDocument();
+    });
+  });
+
+  test('debe mostrar la descripción profesional', async () => {
+    await waitFor(() => {
+      const descriptionElement = screen.getByText(/Profesional multifacético con experiencia en gastronomía/);
+      expect(descriptionElement).toBeInTheDocument();
+    });
+  });
+
   test('debe existir una imagen con alt="fotografía de perfil"', async () => {
     await waitFor(() => {
       const photoElement = screen.getByAltText('fotografía de perfil');
@@ -101,18 +131,30 @@ describe('App Component', () => {
     });
   });
 
-  test('debe contener al menos 8 habilidades en la sección de habilidades', async () => {
+  test('debe contener al menos 15 habilidades en la sección de habilidades', async () => {
     await waitFor(() => {
       // Lista de habilidades que deben estar presentes
       const expectedSkills = [
-        'Comunicación',
-        'Liderazgo', 
-        'Trabajo en equipo',
+        'Comunicación Efectiva',
+        'Liderazgo de Equipos', 
+        'Trabajo en Equipo',
+        'Resolución de Problemas',
         'Adaptabilidad',
-        'JavaScript',
-        'React',
+        'Gestión de Proyectos',
+        'JavaScript (ES6+)',
+        'React.js',
+        'HTML5 & CSS3',
+        'Material UI',
+        'Responsive Design',
         'Node.js',
-        'Git'
+        'Express.js',
+        'MongoDB',
+        'Git & GitHub',
+        'VS Code',
+        'Jest Testing',
+        'Framer Motion',
+        'Mantenimiento Médico',
+        'Gestión Gastronómica'
       ];
 
       // Verificar que cada habilidad esté presente
@@ -121,29 +163,56 @@ describe('App Component', () => {
         expect(skillElements.length).toBeGreaterThan(0);
       });
 
-      // Verificar que hay al menos 8 habilidades
-      expect(expectedSkills.length).toBeGreaterThanOrEqual(8);
+      // Verificar que hay al menos 15 habilidades
+      expect(expectedSkills.length).toBeGreaterThanOrEqual(15);
     });
   });
 
-  test('debe contener al menos 4 descripciones claras en la sección de proyectos', async () => {
+  test('debe mostrar categorías de habilidades', async () => {
     await waitFor(() => {
-      // Lista de descripciones de proyectos que deben estar presentes
-      const expectedDescriptions = [
-        'Desarrollo de aplicaciones web responsivas utilizando tecnologías modernas como React, Node.js y bases de datos.',
-        'Creación de aplicaciones móviles nativas y multiplataforma para iOS y Android.',
-        'Diseño e implementación de bases de datos relacionales y NoSQL para aplicaciones empresariales.',
-        'Portafolio web personal desarrollado con React y Material UI, incluyendo pruebas unitarias automatizadas.'
+      const categoryFilters = screen.getByTestId('category-filters');
+      expect(categoryFilters).toBeInTheDocument();
+      
+      // Verificar que aparecen las categorías principales
+      expect(screen.getByText('Todas')).toBeInTheDocument();
+      expect(screen.getByText('Habilidades Blandas')).toBeInTheDocument();
+      expect(screen.getByText('Frontend')).toBeInTheDocument();
+      expect(screen.getByText('Backend')).toBeInTheDocument();
+      expect(screen.getByText('Herramientas')).toBeInTheDocument();
+    });
+  });
+
+  test('debe contener al menos 6 proyectos en la sección de proyectos', async () => {
+    await waitFor(() => {
+      // Lista de proyectos que deben estar presentes
+      const expectedProjects = [
+        'Portafolio Personal',
+        'Sistema de Gestión de Inventarios',
+        'App de Gestión Gastronómica',
+        'Sistema de Monitoreo Médico',
+        'E-commerce Responsive',
+        'Dashboard Analytics'
       ];
 
-      // Verificar que cada descripción esté presente
-      expectedDescriptions.forEach(description => {
-        const descriptionElement = screen.getByText(description);
-        expect(descriptionElement).toBeInTheDocument();
+      // Verificar que cada proyecto esté presente
+      expectedProjects.forEach(project => {
+        const projectElements = screen.getAllByText(project);
+        expect(projectElements.length).toBeGreaterThan(0);
       });
 
-      // Verificar que hay al menos 4 descripciones
-      expect(expectedDescriptions.length).toBeGreaterThanOrEqual(4);
+      // Verificar que hay al menos 6 proyectos
+      expect(expectedProjects.length).toBeGreaterThanOrEqual(6);
+    });
+  });
+
+  test('debe mostrar estados de proyectos', async () => {
+    await waitFor(() => {
+      // Verificar que aparecen los estados de los proyectos
+      const portfolioStatus = screen.getByTestId('status-Portafolio Personal');
+      const inventoryStatus = screen.getByTestId('status-Sistema de Gestión de Inventarios');
+      
+      expect(portfolioStatus).toHaveTextContent('Completado');
+      expect(inventoryStatus).toHaveTextContent('En Desarrollo');
     });
   });
 
@@ -161,20 +230,38 @@ describe('App Component', () => {
       
       // Verificar que aparecen algunos filtros de tecnologías
       const reactFilter = screen.getByTestId('filter-react');
+      const nodeFilter = screen.getByTestId('filter-node');
+      const materialFilter = screen.getByTestId('filter-material');
+      
       expect(reactFilter).toBeInTheDocument();
+      expect(nodeFilter).toBeInTheDocument();
+      expect(materialFilter).toBeInTheDocument();
     });
   });
 
   test('debe mostrar niveles de habilidades', async () => {
     await waitFor(() => {
       // Buscar los niveles usando data-testid específicos
-      const communicationLevel = screen.getByTestId('level-Comunicación');
-      const javascriptLevel = screen.getByTestId('level-JavaScript');
+      const communicationLevel = screen.getByTestId('level-Comunicación Efectiva');
+      const javascriptLevel = screen.getByTestId('level-JavaScript (ES6+)');
       const nodeLevel = screen.getByTestId('level-Node.js');
       
       expect(communicationLevel).toHaveTextContent('Avanzado');
       expect(javascriptLevel).toHaveTextContent('Intermedio');
       expect(nodeLevel).toHaveTextContent('Básico');
+    });
+  });
+
+  test('debe mostrar categorías de habilidades', async () => {
+    await waitFor(() => {
+      // Verificar que las habilidades tienen categorías
+      const communicationCategory = screen.getByTestId('category-Comunicación Efectiva');
+      const javascriptCategory = screen.getByTestId('category-JavaScript (ES6+)');
+      const nodeCategory = screen.getByTestId('category-Node.js');
+      
+      expect(communicationCategory).toHaveTextContent('soft');
+      expect(javascriptCategory).toHaveTextContent('frontend');
+      expect(nodeCategory).toHaveTextContent('backend');
     });
   });
 

@@ -53,6 +53,24 @@ const Projects = ({ projects }) => {
     }
   };
 
+  const getStatusColor = (status) => {
+    const colors = {
+      'Completado': 'success',
+      'En Desarrollo': 'warning',
+      'Planificado': 'info'
+    };
+    return colors[status] || 'default';
+  };
+
+  const getStatusIcon = (status) => {
+    const icons = {
+      'Completado': '✅',
+      'En Desarrollo': '🔄',
+      'Planificado': '📋'
+    };
+    return icons[status] || '📋';
+  };
+
   return (
     <Box>
       <motion.div
@@ -100,7 +118,7 @@ const Projects = ({ projects }) => {
         <AnimatePresence mode="wait">
           <Grid container spacing={3} key={filter}>
             {filteredProjects.map((project, index) => (
-              <Grid item xs={12} md={4} key={project.title}>
+              <Grid item xs={12} md={6} lg={4} key={project.title}>
                 <motion.div
                   variants={itemVariants}
                   layout
@@ -150,6 +168,16 @@ const Projects = ({ projects }) => {
                           />
                         ))}
                       </Box>
+
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        <Chip
+                          icon={<span>{getStatusIcon(project.status)}</span>}
+                          label={project.status}
+                          color={getStatusColor(project.status)}
+                          variant="filled"
+                          size="small"
+                        />
+                      </Box>
                       
                       {project.link && (
                         <motion.div whileHover={{ scale: 1.05 }}>
@@ -158,6 +186,9 @@ const Projects = ({ projects }) => {
                             color="primary" 
                             size="small"
                             fullWidth
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Ver Proyecto
                           </Button>
@@ -171,6 +202,20 @@ const Projects = ({ projects }) => {
           </Grid>
         </AnimatePresence>
       </motion.div>
+
+      {filteredProjects.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Box sx={{ textAlign: 'center', py: 4 }}>
+            <Typography variant="h6" color="text.secondary">
+              No hay proyectos con esta tecnología
+            </Typography>
+          </Box>
+        </motion.div>
+      )}
     </Box>
   );
 };
