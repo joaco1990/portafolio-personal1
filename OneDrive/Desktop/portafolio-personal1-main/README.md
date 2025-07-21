@@ -2,6 +2,10 @@
 
 Este proyecto es una página web personal desarrollada con **React** y **Material UI (MUI)**. Muestra información relevante sobre mi perfil profesional, habilidades, proyectos académicos y experiencia laboral.
 
+## Demo en vivo
+
+[Ver portafolio publicado en GitHub Pages](https://joaco1990.github.io/portafolio-personal1/)
+
 ## **Experiencia y Proceso de Desarrollo con IA**
 
 ### **Metodología de Trabajo con IA**
